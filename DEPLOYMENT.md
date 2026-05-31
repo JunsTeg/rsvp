@@ -267,9 +267,9 @@ Vous devez voir `active (running)` en vert ✅. Appuyez sur `q` pour quitter.
 ### A5. Récupérer le code de la plateforme
 
 ```bash
-mkdir -p /var/www/setect-rsvp
-cd /var/www/setect-rsvp
-git clone https://github.com/BorisGautier/Plateforme-SETEC.git .
+mkdir -p /var/www/rsvp
+cd /var/www/rsvp
+git clone https://github.com/JunsTeg/rsvp.git.
 ```
 
 > Si git n'est pas installé : `apt install -y git` puis relancez la commande `git clone`.
