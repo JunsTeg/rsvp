@@ -321,7 +321,7 @@ SMTP_FROM="SETECT Events <votre-email@gmail.com>"  ← même adresse que SMTP_US
 ADMIN_NOTIFY_EMAIL=tp.issom@setect.com
 
 # URL publique de la plateforme (avec https://)
-CLIENT_URL=https://rsvp.setect.cm
+CLIENT_URL=https://rsvp.setect.com
 
 # Port interne de l'API (ne pas changer)
 PORT=3001
@@ -352,14 +352,14 @@ Sauvegardez le fichier : `Ctrl+O` → `Entrée` → `Ctrl+X`
 
 ```bash
 # Configurer l'URL de production du frontend
-cd /var/www/setect-rsvp/client
+cd /var/www/rsvp/rsvp/client
 cp .env.example .env
 nano .env
 ```
 
 Modifiez `VITE_APP_URL` avec votre domaine :
 ```env
-VITE_APP_URL=https://rsvp.setect.cm
+VITE_APP_URL=https://rsvp.setect.com
 VITE_APP_SITE_NAME=SETECT Events
 VITE_TWITTER_HANDLE=@SETECT_CM
 ```
@@ -367,20 +367,20 @@ Sauvegardez : `Ctrl+O` → `Entrée` → `Ctrl+X`
 
 ```bash
 # Backend
-cd /var/www/setect-rsvp/server
+cd /var/www/rsvp/rsvp/server
 npm install
 npm run build
 
 # Frontend
-cd /var/www/setect-rsvp/client
+cd /var/www/rsvp/rsvp/client
 npm install
 npm run build
 ```
 
 Vérifiez que les URLs ont bien été substituées :
 ```bash
-grep "og:url\|canonical" /var/www/setect-rsvp/client/dist/index.html
-# Doit afficher votre domaine, ex: https://rsvp.setect.cm
+grep "og:url\|canonical" /var/www/rsvp/rsvp/client/dist/index.html
+# Doit afficher votre domaine, ex: https://rsvp.setect.com
 ```
 
 > `npm run build` peut prendre 1 à 3 minutes. Attendez qu'il se termine.
@@ -394,7 +394,7 @@ grep "og:url\|canonical" /var/www/setect-rsvp/client/dist/index.html
 > Si vous sautez cette étape, vous obtiendrez l'erreur `Cannot find module '.prisma/client/default'`.
 
 ```bash
-cd /var/www/setect-rsvp/server
+cd /var/www/rsvp/rsvp/server
 mkdir -p data
 npx prisma generate
 npx prisma db push
@@ -415,7 +415,7 @@ Admin "admin" created.
 Créez le fichier de configuration PM2 :
 
 ```bash
-cd /var/www/setect-rsvp
+cd /var/www/rsvp/rsvp
 nano ecosystem.config.js
 ```
 
@@ -426,12 +426,12 @@ module.exports = {
   apps: [{
     name: 'setect-rsvp-api',
     script: './server/dist/index.js',
-    cwd: '/var/www/setect-rsvp/server',
+    cwd: '/var/www/rsvp/rsvp',
     env: {
       NODE_ENV: 'production',
     },
-    error_file: '/var/www/setect-rsvp/logs/err.log',
-    out_file: '/var/www/setect-rsvp/logs/out.log',
+    error_file: '/var/www/rsvp/rsvp/logs/err.log',
+    out_file: '/var/www/rsvp/rsvp/logs/out.log',
     log_date_format: 'YYYY-MM-DD HH:mm:ss',
     restart_delay: 5000,
     max_restarts: 10,
@@ -444,8 +444,8 @@ Sauvegardez : `Ctrl+O` → `Entrée` → `Ctrl+X`
 Démarrez l'application :
 
 ```bash
-mkdir -p /var/www/setect-rsvp/logs
-pm2 start /var/www/setect-rsvp/ecosystem.config.js
+mkdir -p /var/www/rsvp/rsvp/logs
+pm2 start /var/www/rsvp/rsvp/ecosystem.config.js
 pm2 save
 pm2 startup
 ```
@@ -474,18 +474,18 @@ Réponse attendue : `{"status":"ok","ts":"..."}` ✅
 ### A10. Configurer Nginx (serveur web)
 
 ```bash
-nano /etc/nginx/sites-available/setect-rsvp
+nano /etc/nginx/sites-available/rsvp
 ```
 
-Copiez-collez ce contenu en remplaçant `rsvp.setect.cm` par votre domaine :
+Copiez-collez ce contenu  :
 
 ```nginx
 server {
     listen 80;
-    server_name rsvp.setect.cm;
+    server_name rsvp.setect.com;
 
     # Fichiers statiques du frontend React
-    root /var/www/setect-rsvp/client/dist;
+    root /var/www/rsvp/rsvp/client/dist;
     index index.html;
 
     # Routes React (application SPA)
@@ -523,7 +523,7 @@ Sauvegardez : `Ctrl+O` → `Entrée` → `Ctrl+X`
 Activez la configuration :
 
 ```bash
-ln -s /etc/nginx/sites-available/setect-rsvp /etc/nginx/sites-enabled/
+ln -s /etc/nginx/sites-available/rsvp /etc/nginx/sites-enabled/
 nginx -t
 ```
 
@@ -538,7 +538,7 @@ systemctl reload nginx
 ### A11. Activer le HTTPS (certificat SSL gratuit)
 
 > **Prérequis :** Votre nom de domaine doit déjà pointer vers l'IP de votre serveur.
-> Pour vérifier : ouvrez `http://rsvp.setect.cm` dans votre navigateur — si la page s'affiche, c'est bon.
+> Pour vérifier : ouvrez `http://rsvp.setect.com` dans votre navigateur — si la page s'affiche, c'est bon.
 
 **Comment faire pointer votre domaine vers le serveur :**
 
@@ -554,7 +554,7 @@ Attendez 5 à 30 minutes que le DNS se propage, puis :
 
 ```bash
 apt install -y certbot python3-certbot-nginx
-certbot --nginx -d rsvp.setect.cm
+certbot --nginx -d rsvp.setect.com
 ```
 
 Certbot vous pose 2 questions :
@@ -563,7 +563,7 @@ Certbot vous pose 2 questions :
 
 Certbot configure HTTPS automatiquement et **renouvelle le certificat tout seul** tous les 90 jours.
 
-Vérifiez : ouvrez `https://rsvp.setect.cm` dans votre navigateur → cadenas vert ✅
+Vérifiez : ouvrez `https://rsvp.setect.com` dans votre navigateur → cadenas vert ✅
 
 ---
 
@@ -624,10 +624,10 @@ pm2 status
 pm2 logs setect-rsvp-api --lines 30
 
 # L'API répond-elle correctement ?
-curl https://rsvp.setect.cm/api/health
+curl https://rsvp.setect.com/api/health
 ```
 
-**La plateforme est en ligne sur `https://rsvp.setect.cm`** 🎉
+**La plateforme est en ligne sur `https://rsvp.setect.com`** 🎉
 
 ---
 
