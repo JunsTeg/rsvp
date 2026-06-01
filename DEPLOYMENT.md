@@ -628,7 +628,6 @@ curl https://rsvp.setect.com/api/health
 ```
 
 **La plateforme est en ligne sur `https://rsvp.setect.com`** 🎉
-
 ---
 
 ## Option B — Déploiement sur hébergement mutualisé (cPanel)

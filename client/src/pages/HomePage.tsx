@@ -41,7 +41,7 @@ export default function HomePage() {
     <div className="min-h-screen" style={{ background: '#f8fafc' }}>
       {/* ─── HERO ─────────────────────────────────────────── */}
       <section
-        className="relative flex min-h-[100svh] flex-col items-center justify-center overflow-hidden px-4 py-8 sm:py-10 xl:py-12"
+        className="relative flex min-h-[100svh] flex-col items-center justify-center overflow-hidden px-4 py-8 sm:py-10 xl:py-12 pb-16 sm:pb-16 md:pb-20 lg:pb-24 xl:pb-28"
         style={{ background: 'radial-gradient(circle at 50% 12%, #122947 0%, #07111f 42%, #020617 100%)' }}
       >
         <div className="pointer-events-none absolute inset-0 z-0 h-full w-full">
@@ -93,7 +93,7 @@ export default function HomePage() {
           </svg>
         </div>
 
-        <div className="relative z-30 mx-auto w-full max-w-4xl text-center">
+        <div className="relative z-30 mx-auto w-full max-w-4xl text-center -mt-4 sm:-mt-6">
           {/* Logo */}
           <motion.div
             initial={{ opacity: 0, y: -20 }}
@@ -122,18 +122,20 @@ export default function HomePage() {
             Invitation Exclusive
           </motion.div>*/}
 
-          {/* Title */}
-          <motion.h1
-            variants={fadeUp}
-            initial="hidden"
-            animate="visible"
-            custom={2}
-            className="mb-4 text-[2.35rem] font-black leading-[0.92] text-white sm:text-5xl md:text-6xl xl:text-7xl"
-            style={{ fontFamily: 'Barlow, Inter, sans-serif' }}
-          >
-            <span style={{ color: '#F28F27' }}>LANCEMENT</span><br />
-            <span style={{ color: '#ffffff' }}>OFFICIEL</span>
-          </motion.h1>
+          {/* Scaled content wrapper (excludes logo) */}
+          <div className="mx-auto scale-[0.9] origin-top">
+            {/* Title */}
+            <motion.h1
+              variants={fadeUp}
+              initial="hidden"
+              animate="visible"
+              custom={2}
+              className="mb-3 sm:mb-4 md:mb-5 xl:mb-6 text-[2.35rem] font-black leading-[0.92] text-white sm:text-5xl md:text-6xl xl:text-7xl"
+              style={{ fontFamily: 'Barlow, Inter, sans-serif' }}
+            >
+              <span style={{ color: '#F28F27' }}>LANCEMENT</span><br />
+              <span style={{ color: '#ffffff' }}>OFFICIEL</span>
+            </motion.h1>
 
           {/* Subtitle 
           <motion.p
@@ -147,76 +149,77 @@ export default function HomePage() {
             entreprises en zone CEMAC.
           </motion.p>*/}
 
-          {/* Event Info Pills */}
-          <motion.div
-            variants={fadeUp}
-            initial="hidden"
-            animate="visible"
-            custom={4}
-            className="mx-auto mb-6 grid max-w-4xl gap-3 sm:mb-8 sm:grid-cols-3 xl:mb-10"
-          >
-            {[
-              { icon: <Calendar size={17} />, text: '18 Juin 2026' },
-              { icon: <Clock size={17} />, text: '15h – 21h' },
-              { icon: <MapPin size={17} />, text: "La Table De L'Elite" },
-            ].map(item => (
-              <div
-                key={item.text}
-                className="flex min-h-[3.75rem] w-full items-center justify-center gap-2 rounded-2xl px-3 py-3 text-center text-base font-semibold text-white shadow-lg backdrop-blur-md sm:min-h-[4.5rem] sm:gap-3 sm:px-4 sm:text-lg xl:min-h-[5rem]"
+            {/* Event Info Pills */}
+            <motion.div
+              variants={fadeUp}
+              initial="hidden"
+              animate="visible"
+              custom={4}
+              className="mx-auto mb-6 sm:mb-7 md:mb-8 xl:mb-9 grid max-w-4xl gap-3 sm:grid-cols-3"
+            >
+              {[
+                { icon: <Calendar size={17} />, text: '18 Juin 2026' },
+                { icon: <Clock size={17} />, text: '15h – 21h' },
+                { icon: <MapPin size={17} />, text: "La Table De L'Elite" },
+              ].map(item => (
+                <div
+                  key={item.text}
+                  className="flex min-h-[3.75rem] w-full items-center justify-center gap-2 rounded-2xl px-3 py-3 text-center text-base font-semibold text-white shadow-lg backdrop-blur-md sm:min-h-[4.5rem] sm:gap-3 sm:px-4 sm:text-lg xl:min-h-[5rem]"
+                  style={{
+                    background: 'linear-gradient(135deg, rgba(255,255,255,0.14), rgba(255,255,255,0.07))',
+                    border: '1px solid rgba(255,255,255,0.18)',
+                    boxShadow: '0 14px 34px rgba(0,0,0,0.16)',
+                  }}
+                >
+                  <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-white/10" style={{ color: '#39A5DE' }}>
+                    {item.icon}
+                  </span>
+                  <span className="min-w-0 max-w-[13rem] leading-snug">{item.text}</span>
+                </div>
+              ))}
+            </motion.div>
+
+            {/* Countdown */}
+            <motion.div
+              variants={fadeUp}
+              initial="hidden"
+              animate="visible"
+              custom={5}
+              className="mb-6 sm:mb-7 md:mb-8 xl:mb-9"
+            >
+              <p className="text-blue-300 text-xs uppercase tracking-widest mb-4">
+                L'événement commence dans
+              </p>
+              <div className="flex justify-center">
+                <Countdown />
+              </div>
+            </motion.div>
+
+            {/* CTA Button */}
+            <motion.div variants={fadeUp} initial="hidden" animate="visible" custom={6}>
+              <button
+                onClick={scrollToForm}
+                className="inline-flex items-center gap-2 rounded-2xl px-6 py-3 text-sm font-bold text-white transition-all hover:scale-105 active:scale-100 sm:px-8 sm:py-4 sm:text-base"
                 style={{
-                  background: 'linear-gradient(135deg, rgba(255,255,255,0.14), rgba(255,255,255,0.07))',
-                  border: '1px solid rgba(255,255,255,0.18)',
-                  boxShadow: '0 14px 34px rgba(0,0,0,0.16)',
+                  background: 'linear-gradient(135deg, #F28F27 0%, #d4770f 100%)',
+                  boxShadow: '0 8px 30px rgba(242, 143, 39, 0.5)',
                 }}
               >
-                <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-white/10" style={{ color: '#39A5DE' }}>
-                  {item.icon}
-                </span>
-                <span className="min-w-0 max-w-[13rem] leading-snug">{item.text}</span>
-              </div>
-            ))}
-          </motion.div>
-
-          {/* Countdown */}
-          <motion.div
-            variants={fadeUp}
-            initial="hidden"
-            animate="visible"
-            custom={5}
-            className="mb-6 sm:mb-8 xl:mb-10"
-          >
-            <p className="text-blue-300 text-xs uppercase tracking-widest mb-4">
-              L'événement commence dans
-            </p>
-            <div className="flex justify-center">
-              <Countdown />
-            </div>
-          </motion.div>
-
-          {/* CTA Button */}
-          <motion.div variants={fadeUp} initial="hidden" animate="visible" custom={6}>
-            <button
-              onClick={scrollToForm}
-              className="inline-flex items-center gap-2 rounded-2xl px-6 py-3 text-sm font-bold text-white transition-all hover:scale-105 active:scale-100 sm:px-8 sm:py-4 sm:text-base"
-              style={{
-                background: 'linear-gradient(135deg, #F28F27 0%, #d4770f 100%)',
-                boxShadow: '0 8px 30px rgba(242, 143, 39, 0.5)',
-              }}
-            >
-              Confirmer ma présence
-            </button>
-          </motion.div>
+                Confirmer ma présence
+              </button>
+            </motion.div>
+          </div>
         </div>
 
         {/* Scroll indicator */}
         <motion.div
-          className="relative z-30 mt-8"
-          animate={{ y: [0, 8, 0] }}
+          className="relative z-30 mt-1 sm:mt-1 md:mt-0 md:-translate-y-[40%] lg:mt-0 xl:mt-0"
+          animate={{ y: [0, 5, 0] }}
           transition={{ duration: 2, repeat: Infinity }}
         >
-          <div className="flex flex-col items-center -space-y-8 sm:-space-y-12">
-            <ChevronDown className="h-12 w-12 text-blue-300 opacity-60 sm:h-[70px] sm:w-[70px]" />
-            <ChevronDown className="h-12 w-12 text-blue-300 opacity-60 sm:h-[70px] sm:w-[70px]" />
+          <div className="flex flex-col items-center -space-y-3 sm:-space-y-3 md:-space-y-2 lg:-space-y-3">
+            <ChevronDown className="h-8 w-8 text-blue-300 opacity-60 sm:h-9 sm:w-9 md:h-10 md:w-10 lg:h-11 lg:w-11 xl:h-12 xl:w-12" />
+            <ChevronDown className="h-8 w-8 text-blue-300 opacity-60 sm:h-9 sm:w-9 md:h-10 md:w-10 lg:h-11 lg:w-11 xl:h-12 xl:w-12" />
           </div>
         </motion.div>
       </section>
@@ -232,7 +235,7 @@ export default function HomePage() {
             className="text-center mb-12"
           >
             <span
-              className="inline-block px-4 py-2 rounded-full text-4xl font-semibold uppercase tracking-widest mb-3"
+              className="inline-block px-4 py-2 rounded-full text-2xl sm:text-4xl font-semibold uppercase tracking-widest mb-3"
               style={{ background: '#fff7ed', color: '#122947' }}
             >
               Agenda
@@ -253,7 +256,7 @@ export default function HomePage() {
               },
               {
                 time: '15h15',
-                title: 'Réussir sa stratégie de cybersécurité avec une approche par étape',
+                title: "Réussir sa stratégie de cybersécurité avec l'approche par étape",
                 icon: <Shield size={20} />,
               },
               {
@@ -278,7 +281,7 @@ export default function HomePage() {
               },
               {
                 time: '16h55',
-                title: 'Panel 2 — Régulation, finance et cyber résilience',
+                title: 'Panel 2 — Finance, Fiscalite et IT en zone CEMAC',
                 icon: <Users size={20} />,
               },
               {
@@ -298,23 +301,23 @@ export default function HomePage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: i * 0.1 }}
-                className="relative grid gap-3 py-3 sm:grid-cols-[6rem_1.5rem_1fr] sm:gap-6 sm:py-4"
+                className="relative grid grid-cols-1 gap-2 py-3 sm:grid-cols-[6rem_1.5rem_1fr] sm:gap-6 sm:py-4"
               >
-                <div className="flex items-center justify-end">
-                  <span className="text-sm sm:text-base font-black tabular-nums" style={{ color: '#F28F27' }}>
+                <div className="flex items-center justify-start sm:justify-end">
+                  <span className="inline-flex items-center rounded-md bg-slate-100 px-2 py-1 text-[0.8rem] font-extrabold tabular-nums text-slate-700 sm:bg-transparent sm:px-0 sm:py-0 sm:text-base sm:text-[#F28F27]" style={{ color: '#F28F27' }}>
                     {item.time}
                   </span>
                 </div>
-                <div className="relative flex items-center justify-center">
+                <div className="relative hidden sm:flex items-center justify-center">
                   <span className="h-3 w-3 rounded-full border-2 border-white shadow ring-1" style={{ background: '#0d2d4a', boxShadow: '0 0 0 4px rgba(242,143,39,0.12)' }} />
                 </div>
                 <div
-                  className="flex items-center gap-4 rounded-2xl border border-slate-100 bg-white px-4 py-4 shadow-sm transition-all hover:-translate-y-0.5 hover:shadow-md"
+                  className="flex items-start gap-3 sm:gap-4 rounded-2xl border border-slate-100 bg-white px-3 py-3 sm:px-4 sm:py-4 shadow-sm transition-all hover:-translate-y-0.5 hover:shadow-md"
                 >
-                  <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-slate-50" style={{ color: '#1E4D72' }}>
+                  <div className="hidden sm:flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-slate-50" style={{ color: '#1E4D72' }}>
                     {item.icon}
                   </div>
-                  <h3 className="text-sm sm:text-base font-extrabold uppercase leading-snug tracking-wide" style={{ color: '#0d2d4a', fontFamily: 'Barlow, sans-serif' }}>
+                  <h3 className="text-sm sm:text-base font-bold sm:font-extrabold sm:uppercase leading-snug tracking-wide break-words" style={{ color: '#0d2d4a', fontFamily: 'Barlow, sans-serif' }}>
                     {item.title}
                   </h3>
                 </div>
