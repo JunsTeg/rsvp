@@ -15,8 +15,8 @@ import {
 import SetectLogo from '../assets/logo-blanc.png'
 import EliteLogo from '../assets/elite.png'
 //import ChiPhoto from '../assets/chi.jpeg'
-import HervePhoto from '../assets/herve.jpeg'
-import BoubaPhoto from '../assets/bouba.jpeg'
+//import HervePhoto from '../assets/herve.jpeg'
+//import BoubaPhoto from '../assets/bouba.jpeg'
 import Countdown from '../components/Countdown'
 import RSVPForm from '../components/RSVPForm'
 import { FireworksBackground } from '../components/fireworks'
@@ -322,7 +322,7 @@ export default function HomePage() {
             ))}
           </div>
 
-          <motion.div
+          {/*<motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -436,7 +436,7 @@ export default function HomePage() {
                 </motion.div>
               ))}
             </div>
-          </motion.div>
+          </motion.div>*/}
 
           {/* Event details card */}
           <motion.div
