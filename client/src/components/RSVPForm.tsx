@@ -129,6 +129,7 @@ const functionOptions = [
   'Directeur Général Adjoint (DGA)',
   'Directeur des Systèmes d’Information (DSI)',
   'Directeur Administratif et Financier (DAF)',
+  'Directeur Commercial (DC)',
   'Directeur Technique (CTO)',
   'Directeur de la Sécurité des Systèmes d’Information (RSSI / CISO)',
   'Directeur des Opérations (COO)',

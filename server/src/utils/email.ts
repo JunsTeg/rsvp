@@ -37,11 +37,11 @@ function emailBase(content: string): string {
   <![endif]-->
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 </head>
-<body style="margin:0;padding:0;background-color:#f1f5f9;">
+<body style="margin:0;padding:0;background-color:#f1f5f9;-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%;">
   <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="background-color:#f1f5f9;">
     <tr>
       <td align="center" style="padding:24px 12px;">
-        <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="max-width:600px;background-color:#ffffff;border-radius:12px;overflow:hidden;">
+        <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="max-width:600px;background-color:#ffffff;border-radius:12px;">
           ${banner}
           <tr>
             <td align="center" style="background-color:#1E4D72;padding:28px 24px;">
@@ -57,7 +57,7 @@ function emailBase(content: string): string {
           <tr>
             <td align="center" style="background-color:#f8fafc;border-top:1px solid #e2e8f0;padding:16px 24px;">
               <div style="font-family:Arial, sans-serif;color:#94a3b8;font-size:12px;line-height:18px;">© ${new Date().getFullYear()} SETECT — Plateforme RSVP sécurisée</div>
-              <div style="font-family:Arial, sans-serif;color:#94a3b8;font-size:12px;line-height:18px;margin-top:4px;">marketing@setect.com · +237 6 95 39 03 29</div>
+              <div style="font-family:Arial, sans-serif;color:#94a3b8;font-size:12px;line-height:18px;margin-top:4px;">marketing@setect.com </div>
             </td>
           </tr>
         </table>
@@ -84,7 +84,25 @@ export async function sendConfirmationEmail(
 
   const content = isConfirme
     ? `
-      <div style="display:inline-block;background-color:#fff7ed;color:#F28F27;border:1px solid #F28F27;border-radius:999px;padding:6px 12px;font-family:Arial, sans-serif;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:16px;">Confirmation de présence</div>
+      <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td height="12" style="line-height:12px;font-size:0;">&nbsp;</td>
+        </tr>
+        <tr>
+          <td align="center" style="padding:0;">
+            <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="max-width:600px;margin:0 auto;">
+              <tr>
+                <td align="center" bgcolor="#F28F27" style="background-color:#F28F27;padding:14px 12px;">
+                  <div style="color:#ffffff;font-family:Arial, sans-serif;font-size:14px;font-weight:900;letter-spacing:1px;text-transform:uppercase;line-height:1.4;word-break:break-word;word-wrap:break-word;mso-line-height-rule:exactly;text-align:center;">CONFIRMATION DE PRÉSENCE</div>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+        <tr>
+          <td height="16" style="line-height:16px;font-size:0;">&nbsp;</td>
+        </tr>
+      </table>
       <h1 style="margin:0 0 12px 0;font-family:Arial, sans-serif;color:#1E4D72;font-size:20px;line-height:1.3;">Bonjour ${data.prenom} !</h1>
       <p style="margin:0 0 12px 0;font-family:Arial, sans-serif;color:#475569;font-size:14px;line-height:1.6;">Votre participation au <strong>LANCEMENT OFFICIEL DE SETECT</strong> a bien été confirmée.</p>
       <p style="margin:0 0 16px 0;font-family:Arial, sans-serif;color:#475569;font-size:14px;line-height:1.6;">Nous sommes ravis de vous accueillir pour cette soiree de lancement</p>
@@ -102,11 +120,28 @@ export async function sendConfirmationEmail(
           <td style="padding:6px 16px 16px 16px;font-family:Arial, sans-serif;color:#334155;font-size:13px;"><strong>Lieu:</strong> Elite Offices, Akwa – Douala</td>
         </tr>
       </table>
-      <p style="margin:16px 0 8px 0;font-family:Arial, sans-serif;color:#475569;font-size:14px;line-height:1.6;">Au programme : Mot de bienvenue du CEO · Panels de discussion · Keynote · Dîner.</p>
       <p style="margin:0;font-family:Arial, sans-serif;color:#94a3b8;font-size:12px;line-height:1.6;">Pour toute question, contactez-nous à <a href="mailto:marketing@setect.com" style="color:#1E4D72;text-decoration:none;">marketing@setect.com</a></p>
     `
     : `
-      <div style="display:inline-block;background-color:#fff1f2;color:#dc2626;border:1px solid #dc2626;border-radius:999px;padding:6px 12px;font-family:Arial, sans-serif;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:16px;">Réponse enregistrée</div>
+      <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td height="12" style="line-height:12px;font-size:0;">&nbsp;</td>
+        </tr>
+        <tr>
+          <td align="center" style="padding:0;">
+            <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="max-width:600px;margin:0 auto;">
+              <tr>
+                <td align="center" bgcolor="#dc2626" style="background-color:#dc2626;padding:14px 12px;">
+                  <div style="color:#ffffff;font-family:Arial, sans-serif;font-size:14px;font-weight:900;letter-spacing:1px;text-transform:uppercase;line-height:1.4;word-break:break-word;word-wrap:break-word;mso-line-height-rule:exactly;text-align:center;">RÉPONSE ENREGISTRÉE</div>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+        <tr>
+          <td height="16" style="line-height:16px;font-size:0;">&nbsp;</td>
+        </tr>
+      </table>
       <h1 style="margin:0 0 12px 0;font-family:Arial, sans-serif;color:#1E4D72;font-size:20px;line-height:1.3;">Bonjour ${data.prenom},</h1>
       <p style="margin:0 0 12px 0;font-family:Arial, sans-serif;color:#475569;font-size:14px;line-height:1.6;">Nous avons bien pris note de votre absence à l'événement <strong>SETECT LANCEMENT OFFICIEL</strong> du 18 Juin 2026.</p>
       <p style="margin:0 0 12px 0;font-family:Arial, sans-serif;color:#475569;font-size:14px;line-height:1.6;">Nous espérons pouvoir compter sur votre présence lors d'un prochain événement. Merci pour votre retour.</p>
