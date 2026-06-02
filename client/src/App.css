@@ -1,0 +1,107 @@
+/* Height-aware responsive rules for the HERO */
+
+/* Compact mode for short viewports (< 680px height) */
+@media (max-height: 680px) {
+  .hero {
+    padding-top: 0.75rem !important;
+    padding-bottom: clamp(0.6rem, 2vh, 1rem) !important;
+  }
+  .hero .hero-title {
+    font-size: clamp(1.35rem, 5.1vmin, 3.9rem) !important;
+    margin-bottom: 0.2rem !important;
+  }
+  .hero .hero-pills {
+    margin-bottom: 0.6rem !important;
+    gap: 0.35rem !important;
+  }
+  .hero .hero-pill {
+    min-height: clamp(2rem, 4.6vmin, 2.9rem) !important;
+    font-size: 0.82rem !important;
+    padding-top: 0.3rem !important;
+    padding-bottom: 0.3rem !important;
+  }
+  /* First span inside pill is the icon circle */
+  .hero .hero-pill > span:first-child {
+    height: clamp(1.6rem, 3.8vmin, 2rem) !important;
+    width: clamp(1.6rem, 3.8vmin, 2rem) !important;
+  }
+  .hero .hero-countdown {
+    margin-bottom: 0.45rem !important;
+  }
+  .hero .hero-chevron-block {
+    margin-top: 0.15rem !important;
+  }
+  .hero .hero-chevron-stack > svg {
+    height: 1.05rem !important;
+    width: 1.05rem !important;
+  }
+}
+
+/* Boost mode for tall viewports (> 720px height): ~+15% scale */
+@media (min-height: 721px) {
+  .hero .hero-title {
+    font-size: clamp(2.07rem, 8.28vmin, 6.9rem) !important;
+  }
+  .hero .hero-pills {
+    gap: clamp(0.6rem, 1.84vmin, 0.9rem) !important;
+    margin-bottom: 1.1rem !important;
+  }
+  .hero .hero-pill {
+    min-height: clamp(2.99rem, 7.13vmin, 5.06rem) !important;
+    font-size: 1.06rem !important;
+    padding-top: clamp(0.58rem, 2.07vmin, 0.86rem) !important;
+    padding-bottom: clamp(0.58rem, 2.07vmin, 0.86rem) !important;
+  }
+  .hero .hero-pill > span:first-child {
+    height: clamp(2.42rem, 5.75vmin, 3rem) !important;
+    width: clamp(2.42rem, 5.75vmin, 3rem) !important;
+  }
+  .hero .hero-countdown {
+    margin-bottom: clamp(0.86rem, 3.45vh, 2.3rem) !important;
+  }
+  .hero .hero-chevron-stack > svg {
+    height: clamp(1.38rem, 3.68vmin, 2.76rem) !important;
+    width: clamp(1.38rem, 3.68vmin, 2.76rem) !important;
+  }
+}
+
+/* Small-laptop harmonization: height <= 820px and width <= 1440px
+   Avoid over-boosting and keep a compact, balanced hero */
+@media (max-height: 820px) and (max-width: 1440px) {
+  .hero {
+    padding-top: 0.6rem !important;
+    padding-bottom: clamp(0.5rem, 1.6vh, 0.9rem) !important;
+  }
+  .hero .hero-title {
+    font-size: clamp(1.5rem, 5.8vmin, 4.3rem) !important;
+    margin-bottom: 0.3rem !important;
+  }
+  .hero .hero-pills {
+    gap: 0.5rem !important;
+    margin-bottom: 0.7rem !important;
+  }
+  .hero .hero-pill {
+    min-height: clamp(2.2rem, 5.4vmin, 3.4rem) !important;
+    font-size: 0.94rem !important;
+    padding-top: 0.4rem !important;
+    padding-bottom: 0.4rem !important;
+  }
+  .hero .hero-pill > span:first-child {
+    height: clamp(1.8rem, 4.6vmin, 2.4rem) !important;
+    width: clamp(1.8rem, 4.6vmin, 2.4rem) !important;
+  }
+  .hero .hero-countdown {
+    margin-bottom: 0.6rem !important;
+  }
+  .hero .hero-chevron-block {
+    margin-top: 0.3rem !important;
+  }
+  .hero .hero-chevron-stack > svg {
+    height: 1.2rem !important;
+    width: 1.2rem !important;
+  }
+  /* Slightly reduce logo visual weight only within the hero */
+  .hero img[alt="SETECT"] {
+    transform: scale(0.9) !important;
+  }
+}

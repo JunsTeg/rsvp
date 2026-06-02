@@ -140,7 +140,6 @@ const functionOptions = [
   'Responsable Infrastructure',
   'Responsable Conformité / Risques',
   'Consultant IT / Cybersécurité',
-  'Autre',
 ]
 
 export default function RSVPForm() {

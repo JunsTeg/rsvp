@@ -1,4 +1,4 @@
-import { useRef } from 'react'
+import { useRef, useLayoutEffect } from 'react'
 import { motion, type Variants } from 'framer-motion'
 import {
   Calendar,
@@ -32,16 +32,41 @@ const fadeUp: Variants = {
 
 export default function HomePage() {
   const formRef = useRef<HTMLDivElement>(null)
+  const heroRef = useRef<HTMLElement>(null)
+  const contentRef = useRef<HTMLDivElement>(null)
 
   const scrollToForm = () => {
     formRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' })
   }
 
+  useLayoutEffect(() => {
+    const apply = () => {
+      const h = window.innerHeight
+      const el = heroRef.current
+      const content = contentRef.current
+      if (!el) return
+      el.classList.toggle('is-compact', h <= 680)
+      el.classList.toggle('is-boost', h >= 721)
+      if (content) {
+        let scale = 1
+        if (h <= 680) scale = 0.95
+        else if (h <= 820) scale = 1
+        else scale = 1
+        content.style.transformOrigin = 'top center'
+        content.style.transform = `scale(${scale})`
+      }
+    }
+    apply()
+    window.addEventListener('resize', apply)
+    return () => window.removeEventListener('resize', apply)
+  }, [])
+
   return (
     <div className="min-h-screen" style={{ background: '#f8fafc' }}>
       {/* ─── HERO ─────────────────────────────────────────── */}
       <section
-        className="relative flex min-h-[100svh] flex-col items-center justify-center overflow-hidden px-4 py-8 sm:py-10 xl:py-12 pb-16 sm:pb-16 md:pb-20 lg:pb-24 xl:pb-28"
+        className="hero relative flex min-h-[100dvh] flex-col items-center justify-center overflow-hidden px-4 py-6 sm:py-8 xl:py-10 pb-[clamp(1.25rem,4vh,3rem)]"
+        ref={heroRef}
         style={{ background: 'radial-gradient(circle at 50% 12%, #122947 0%, #07111f 42%, #020617 100%)' }}
       >
         <div className="pointer-events-none absolute inset-0 z-0 h-full w-full">
@@ -93,7 +118,7 @@ export default function HomePage() {
           </svg>
         </div>
 
-        <div className="relative z-30 mx-auto w-full max-w-4xl text-center -mt-4 sm:-mt-6">
+        <div className="relative z-30 mx-auto w-full max-w-[min(92vw,80rem)] text-center -mt-2 sm:-mt-3">
           {/* Logo */}
           <motion.div
             initial={{ opacity: 0, y: -20 }}
@@ -101,7 +126,7 @@ export default function HomePage() {
             transition={{ duration: 0.6 }}
             className="mb-4 flex justify-center sm:mb-6 lg:mb-8"
           >
-            <div className="px-4 py-3 drop-shadow-[0_0_44px_rgba(57,165,222,0.45)] sm:px-6 sm:py-4 xl:px-8 xl:py-6">
+            <div className="px-4 py-2 drop-shadow-[0_0_44px_rgba(57,165,222,0.45)] sm:px-6 sm:py-4 xl:px-8 xl:py-6">
               <img src={SetectLogo} alt="SETECT" className="h-[4.6rem] w-auto scale-[1.25] sm:h-[5.8rem] sm:scale-[1.32] xl:h-[7rem] xl:scale-[1.4]" />
             </div>
           </motion.div>
@@ -123,15 +148,15 @@ export default function HomePage() {
           </motion.div>*/}
 
           {/* Scaled content wrapper (excludes logo) */}
-          <div className="mx-auto scale-[0.9] origin-top">
+          <div className="mx-auto origin-top" ref={contentRef}>
             {/* Title */}
             <motion.h1
               variants={fadeUp}
               initial="hidden"
               animate="visible"
               custom={2}
-              className="mb-3 sm:mb-4 md:mb-5 xl:mb-6 text-[2.35rem] font-black leading-[0.92] text-white sm:text-5xl md:text-6xl xl:text-7xl"
-              style={{ fontFamily: 'Barlow, Inter, sans-serif' }}
+              className="hero-title mb-3 sm:mb-4 md:mb-5 xl:mb-6 font-black leading-[0.92] text-white"
+              style={{ fontFamily: 'Barlow, Inter, sans-serif', fontSize: 'clamp(1.8rem, 7.2vmin, 6rem)' }}
             >
               <span style={{ color: '#F28F27' }}>LANCEMENT</span><br />
               <span style={{ color: '#ffffff' }}>OFFICIEL</span>
@@ -155,7 +180,8 @@ export default function HomePage() {
               initial="hidden"
               animate="visible"
               custom={4}
-              className="mx-auto mb-6 sm:mb-7 md:mb-8 xl:mb-9 grid max-w-4xl gap-3 sm:grid-cols-3"
+              className="hero-pills mx-auto mb-6 sm:mb-7 md:mb-8 xl:mb-9 grid max-w-4xl gap-3 sm:grid-cols-3"
+              style={{ gap: 'clamp(0.5rem, 1.6vmin, 0.75rem)' }}
             >
               {[
                 { icon: <Calendar size={17} />, text: '18 Juin 2026' },
@@ -164,17 +190,22 @@ export default function HomePage() {
               ].map(item => (
                 <div
                   key={item.text}
-                  className="flex min-h-[3.75rem] w-full items-center justify-center gap-2 rounded-2xl px-3 py-3 text-center text-base font-semibold text-white shadow-lg backdrop-blur-md sm:min-h-[4.5rem] sm:gap-3 sm:px-4 sm:text-lg xl:min-h-[5rem]"
+                  className="hero-pill flex min-h-[3.4rem] w-full items-center justify-center gap-2 rounded-2xl px-3 py-3 text-center text-sm font-semibold text-white shadow-lg backdrop-blur-md sm:min-h-[4.25rem] sm:gap-3 sm:px-4 sm:text-base xl:min-h-[4.75rem]"
                   style={{
                     background: 'linear-gradient(135deg, rgba(255,255,255,0.14), rgba(255,255,255,0.07))',
                     border: '1px solid rgba(255,255,255,0.18)',
                     boxShadow: '0 14px 34px rgba(0,0,0,0.16)',
+                    minHeight: 'clamp(2.6rem, 6.2vmin, 4.4rem)',
+                    paddingBlock: 'clamp(0.5rem, 1.8vmin, 0.75rem)'
                   }}
                 >
-                  <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-white/10" style={{ color: '#39A5DE' }}>
+                  <span
+                    className="flex shrink-0 items-center justify-center rounded-full bg-white/10"
+                    style={{ color: '#39A5DE', height: 'clamp(2.1rem, 5vmin, 2.6rem)', width: 'clamp(2.1rem, 5vmin, 2.6rem)' }}
+                  >
                     {item.icon}
                   </span>
-                  <span className="min-w-0 max-w-[13rem] leading-snug">{item.text}</span>
+                  <span className="min-w-0 max-w-[13rem] leading-snug" style={{ fontSize: 'clamp(0.92rem, 1.7vmin, 1.05rem)' }}>{item.text}</span>
                 </div>
               ))}
             </motion.div>
@@ -185,7 +216,8 @@ export default function HomePage() {
               initial="hidden"
               animate="visible"
               custom={5}
-              className="mb-6 sm:mb-7 md:mb-8 xl:mb-9"
+              className="hero-countdown mb-6 sm:mb-7 md:mb-8 xl:mb-9"
+              style={{ marginBottom: 'clamp(0.75rem, 3vh, 2rem)' }}
             >
               <p className="text-blue-300 text-xs uppercase tracking-widest mb-4">
                 L'événement commence dans
@@ -213,13 +245,14 @@ export default function HomePage() {
 
         {/* Scroll indicator */}
         <motion.div
-          className="relative z-30 mt-1 sm:mt-1 md:mt-0 md:-translate-y-[40%] lg:mt-0 xl:mt-0"
+          className="hero-chevron-block relative z-30"
+          style={{ marginTop: 'clamp(0.5rem, 2.4vh, 1.25rem)' }}
           animate={{ y: [0, 5, 0] }}
           transition={{ duration: 2, repeat: Infinity }}
         >
-          <div className="flex flex-col items-center -space-y-3 sm:-space-y-3 md:-space-y-2 lg:-space-y-3">
-            <ChevronDown className="h-8 w-8 text-blue-300 opacity-60 sm:h-9 sm:w-9 md:h-10 md:w-10 lg:h-11 lg:w-11 xl:h-12 xl:w-12" />
-            <ChevronDown className="h-8 w-8 text-blue-300 opacity-60 sm:h-9 sm:w-9 md:h-10 md:w-10 lg:h-11 lg:w-11 xl:h-12 xl:w-12" />
+          <div className="hero-chevron-stack flex flex-col items-center -space-y-2 sm:-space-y-2 md:-space-y-1 lg:-space-y-2">
+            <ChevronDown className="text-blue-300 opacity-60" style={{ height: 'clamp(1.2rem, 3.2vmin, 2.4rem)', width: 'clamp(1.2rem, 3.2vmin, 2.4rem)' }} />
+            <ChevronDown className="text-blue-300 opacity-60" style={{ height: 'clamp(1.2rem, 3.2vmin, 2.4rem)', width: 'clamp(1.2rem, 3.2vmin, 2.4rem)' }} />
           </div>
         </motion.div>
       </section>
@@ -261,7 +294,7 @@ export default function HomePage() {
               },
               {
                 time: '15h30',
-                title: 'Panel 1 — Cyber résilience & enjeux IT',
+                title: 'Panel 1 : La cyberrésilience au delà du marketing : preuves, pratiques et mesures concrètes',
                 icon: <Users size={20} />,
               },
               {
